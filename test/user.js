@@ -30,30 +30,20 @@ describe('User', function(){
         // We need to use `spread` because `user.save` yields an array 
       .spread(function(u){
           prev_user = u;
-          console.log(u);
           
-            assert.equal(prev_user.name,'alfred sang');
-          // u.update();
+          assert.equal(prev_user.name,'alfred sang');
+          
           var conditions = { name: 'borne' }
                 , update = { $set: { name: 'zhangting' }}
                 , options = {};
                 
-          return User.updateAsync({_id:u._id},update,options);
+          return User.updateAsync({_id: u._id}, update, options);
         }).then(function(docs){
-          console.log(docs);
-          
-          // assert.equal(prev_user.name,'alfred sang1');
-          assert.equal(docs.ok,1);
-          
+          // assert.equal(prev_user.name, 'alfred sang1');
+          assert.equal(docs.ok, 1);
           done();
         }).catch(function(err) {
-          if(err){
-            console.log("There was an error = " + err);
-          }
-          
-          assert.equal(1,1);
-          assert.typeof(err, Error);
-          done()
+          done(err);
         })
     })
   })
